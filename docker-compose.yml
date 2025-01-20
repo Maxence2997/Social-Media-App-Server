@@ -1,0 +1,20 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      - POSTGRES_PASSWORD=123456
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+    networks:
+      - database
+    restart: always
+
+volumes:
+  postgres-data:
+    driver: local
+
+networks:
+  database:
+    driver: bridge
