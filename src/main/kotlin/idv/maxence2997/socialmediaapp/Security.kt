@@ -1,4 +1,4 @@
-package idv.maxence
+package idv.maxence.idv.maxence2997.socialmediaapp
 
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
@@ -8,16 +8,16 @@ import io.ktor.server.auth.jwt.*
 
 fun Application.configureSecurity() {
     // Please read the jwt property from the config file if you are using EngineMain
-    val jwtAudience = "jwt-audience"
-    val jwtDomain = "https://jwt-provider-domain/"
-    val jwtRealm = "ktor sample app"
-    val jwtSecret = "secret"
+
     authentication {
         jwt {
+          val jwtAudience = this@configureSecurity.environment.config.property("jwt.audience").getString()
+          val jwtDomain = this@configureSecurity.environment.config.property("jwt.domain").getString()
+          val jwtSecret = this@configureSecurity.environment.config.property("jwt.secret").getString()
+          val jwtRealm = this@configureSecurity.environment.config.property("jwt.realm").getString()
             realm = jwtRealm
             verifier(
-                JWT
-                    .require(Algorithm.HMAC256(jwtSecret))
+              JWT.require(Algorithm.HMAC256(jwtSecret))
                     .withAudience(jwtAudience)
                     .withIssuer(jwtDomain)
                     .build()

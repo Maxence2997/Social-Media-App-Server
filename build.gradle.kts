@@ -15,6 +15,11 @@ plugins {
 group = "idv.maxence"
 version = "0.0.1"
 
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
 application {
     mainClass.set("io.ktor.server.netty.EngineMain")
 

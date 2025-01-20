@@ -5,9 +5,10 @@ ktor:
   deployment:
     port: 8080
 jwt:
-  domain: "https://jwt-provider-domain/"
-  audience: "jwt-audience"
-  realm: "ktor sample app"
+  domain: "my-domain"
+  audience: "user"
+  realm: "Social Media"
+  secret: my-secret
 postgres:
   url: "jdbc:postgresql://localhost/default"
   user: username
