@@ -7,10 +7,5 @@ sealed class ApiResponse<T>(
   val data: T,
 ) {
   class Success<T>(data: T) : ApiResponse<T>(data = data)
-  class Error<T>(
-    code: HttpStatusCode,
-    data: T
-  ) : ApiResponse<T>(
-    code, data
-  )
+  class Error<T>(code: HttpStatusCode, data: T) : ApiResponse<T>(code = code, data = data)
 }
