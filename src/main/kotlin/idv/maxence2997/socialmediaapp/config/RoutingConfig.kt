@@ -1,4 +1,4 @@
-package idv.maxence.idv.maxence2997.socialmediaapp
+package idv.maxence.idv.maxence2997.socialmediaapp.config
 
 import idv.maxence.idv.maxence2997.socialmediaapp.route.authRouting
 import io.ktor.server.application.*

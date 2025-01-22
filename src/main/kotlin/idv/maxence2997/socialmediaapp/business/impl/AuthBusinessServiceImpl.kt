@@ -1,6 +1,7 @@
 package idv.maxence.idv.maxence2997.socialmediaapp.business.impl
 
 import idv.maxence.idv.maxence2997.socialmediaapp.business.AuthBusinessService
+import idv.maxence.idv.maxence2997.socialmediaapp.config.generateToken
 import idv.maxence.idv.maxence2997.socialmediaapp.dao.repository.UserRepository
 import idv.maxence.idv.maxence2997.socialmediaapp.domain.AuthResponse
 import idv.maxence.idv.maxence2997.socialmediaapp.domain.AuthResponseData
@@ -25,7 +26,7 @@ class AuthBusinessServiceImpl(
         AuthResponse(
           data = AuthResponseData(
             id = user.id,
-            token = "Here is your token",
+            token = generateToken(user.email),
             email = user.email,
             username = user.username,
             bio = user.bio,
@@ -48,7 +49,7 @@ class AuthBusinessServiceImpl(
         AuthResponse(
           data = AuthResponseData(
             id = userFound.id,
-            token = "Here is your token",
+            token = generateToken(userFound.email),
             username = userFound.username,
             email = userFound.email,
             bio = userFound.bio,
@@ -60,7 +61,8 @@ class AuthBusinessServiceImpl(
       )
     } else {
       ApiResponse.Error(
-        code = HttpStatusCode.Forbidden, data = AuthResponse(
+        code = HttpStatusCode.Forbidden,
+        data = AuthResponse(
           errorMessage = "Invalid credentials"
         )
       )
