@@ -1,13 +1,11 @@
 package idv.maxence.idv.maxence2997.socialmediaapp
 
+import idv.maxence.idv.maxence2997.socialmediaapp.route.authRouting
 import io.ktor.server.application.*
-import io.ktor.server.response.*
 import io.ktor.server.routing.*
 
 fun Application.configureRouting() {
-    routing {
-        get("/") {
-            call.respondText("Hello World!")
-        }
-    }
+  routing {
+    authRouting()
+  }
 }
