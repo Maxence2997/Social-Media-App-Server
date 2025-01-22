@@ -37,7 +37,34 @@ class AuthBusinessServiceImpl(
   }
 
   override suspend fun signIn(params: SignInParams): ApiResponse<AuthResponse> {
-    TODO("Not yet implemented")
+    val userFound = userRepository.findByEmail(params.email) ?: return ApiResponse.Error(
+      code = HttpStatusCode.NotFound, data = AuthResponse(
+        errorMessage = "User not found"
+      )
+    )
+
+    return if (userFound.password == params.password) {
+      ApiResponse.Success(
+        AuthResponse(
+          data = AuthResponseData(
+            id = userFound.id,
+            token = "Here is your token",
+            username = userFound.username,
+            email = userFound.email,
+            bio = userFound.bio,
+            avatar = userFound.avatar,
+            followerCounts = 0,
+            followingCounts = 0,
+          )
+        )
+      )
+    } else {
+      ApiResponse.Error(
+        code = HttpStatusCode.Forbidden, data = AuthResponse(
+          errorMessage = "Invalid credentials"
+        )
+      )
+    }
   }
 
   private suspend fun userAlreadyExists(email: String): Boolean {
