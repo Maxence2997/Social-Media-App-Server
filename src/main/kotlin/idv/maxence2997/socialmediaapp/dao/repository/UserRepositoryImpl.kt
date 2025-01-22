@@ -4,6 +4,7 @@ import idv.maxence.idv.maxence2997.socialmediaapp.config.DatabaseFactory.dbQuery
 import idv.maxence.idv.maxence2997.socialmediaapp.dao.entity.UserTable
 import idv.maxence.idv.maxence2997.socialmediaapp.domain.SignUpParams
 import idv.maxence.idv.maxence2997.socialmediaapp.domain.User
+import idv.maxence.idv.maxence2997.socialmediaapp.util.hashPassword
 import org.jetbrains.exposed.sql.ResultRow
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.selectAll
@@ -13,7 +14,7 @@ class UserRepositoryImpl : UserRepository {
     return dbQuery {
       val insertStatement = UserTable.insert {
         it[username] = createUser.username
-        it[password] = createUser.password
+        it[password] = hashPassword(createUser.password)
         it[email] = createUser.email
       }
       insertStatement.resultedValues?.singleOrNull()?.let {
@@ -24,10 +25,7 @@ class UserRepositoryImpl : UserRepository {
 
   override suspend fun findByEmail(email: String): User? {
     return dbQuery {
-      UserTable.selectAll()
-        .where { UserTable.email eq email }
-        .map { rowToDomain(it) }
-        .singleOrNull()
+      UserTable.selectAll().where { UserTable.email eq email }.map { rowToDomain(it) }.singleOrNull()
     }
   }
 

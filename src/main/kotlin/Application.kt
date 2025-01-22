@@ -9,6 +9,7 @@ fun main(args: Array<String>) {
 
 fun Application.module() {
   DatabaseFactory.init()
+  HashConfig.load(environment.config)
   configureSecurity()
   configureSerialization()
   configureKoin()

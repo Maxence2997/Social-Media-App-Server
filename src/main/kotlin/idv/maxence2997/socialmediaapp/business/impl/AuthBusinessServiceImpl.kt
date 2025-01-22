@@ -8,6 +8,7 @@ import idv.maxence.idv.maxence2997.socialmediaapp.domain.AuthResponseData
 import idv.maxence.idv.maxence2997.socialmediaapp.domain.SignInParams
 import idv.maxence.idv.maxence2997.socialmediaapp.domain.SignUpParams
 import idv.maxence.idv.maxence2997.socialmediaapp.util.ApiResponse
+import idv.maxence.idv.maxence2997.socialmediaapp.util.hashPassword
 import io.ktor.http.*
 
 class AuthBusinessServiceImpl(
@@ -44,7 +45,7 @@ class AuthBusinessServiceImpl(
       )
     )
 
-    return if (userFound.password == params.password) {
+    return if (isUserValid(hashedPassword = userFound.password, paramPassword = params.password)) {
       ApiResponse.Success(
         AuthResponse(
           data = AuthResponseData(
@@ -71,5 +72,9 @@ class AuthBusinessServiceImpl(
 
   private suspend fun userAlreadyExists(email: String): Boolean {
     return userRepository.findByEmail(email) != null
+  }
+
+  private fun isUserValid(hashedPassword: String, paramPassword: String): Boolean {
+    return hashedPassword == hashPassword(paramPassword)
   }
 }
