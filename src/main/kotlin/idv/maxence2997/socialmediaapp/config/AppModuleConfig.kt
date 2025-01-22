@@ -1,4 +1,4 @@
-package idv.maxence.idv.maxence2997.socialmediaapp.di
+package idv.maxence.idv.maxence2997.socialmediaapp.config
 
 import idv.maxence.idv.maxence2997.socialmediaapp.business.AuthBusinessService
 import idv.maxence.idv.maxence2997.socialmediaapp.business.impl.AuthBusinessServiceImpl
