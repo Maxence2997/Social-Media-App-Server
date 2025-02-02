@@ -11,6 +11,5 @@ object UserTable : Table("users") {
     "Hey there! I'm using Social Media App! Welcome to my profile!"
   )
   val avatar = text("avatar").nullable()
-  override val primaryKey: PrimaryKey
-    get() = PrimaryKey(id)
+  override val primaryKey: PrimaryKey = PrimaryKey(id)
 }
